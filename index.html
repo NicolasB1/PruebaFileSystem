@@ -10,7 +10,7 @@
     //
   
 		//setTimeout(onDeviceReady,3000);
-		function onLoad(){document.addEventListener("deviceready", onDeviceReady, false);}
+		document.addEventListener("deviceready", onDeviceReady, false);
 	
     // Cordova is ready
     //
@@ -19,10 +19,12 @@
     }
 
     function gotFS(fileSystem) {
+    	alert(fileSystem);
         fileSystem.root.getFile("readme.txt", {create: true, exclusive: false}, gotFileEntry, fail);
     }
 
     function gotFileEntry(fileEntry) {
+    	alert('fileEntry');
         fileEntry.createWriter(gotFileWriter, fail);
     }
 
@@ -31,7 +33,7 @@
             console.log("contents of file now 'some sample text'");
             writer.truncate(11);  
             writer.onwriteend = function(evt) {
-                console.log("contents of file now 'some sample'");
+                alert("contents of file now 'some sample'");
                 writer.seek(4);
                 writer.write(" different text");
                 writer.onwriteend = function(evt){
